@@ -1,5 +1,4 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
 import heartsReducer from '../features/hearts/heartsSlice';
 
 import storage from 'redux-persist/lib/storage';
@@ -12,7 +11,6 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  counter: counterReducer,
   hearts: heartsReducer,
 });
 
