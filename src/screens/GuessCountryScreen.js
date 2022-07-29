@@ -1,15 +1,13 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import Hearts from "../features/hearts/Hearts";
-import { useDispatch } from 'react-redux';
-import { decrementHearts } from "../features/hearts/heartsSlice";
+import CountryAutocomplete from "../features/countryAutocomplete/CountryAutocomplete";
 
 export default function GuessCountryScreen() {
 
-    const dispatch = useDispatch();
-
     return (
-        <Grid container align="center"
+        <Grid container
+            align="center" 
             sx={{
                 height: "100vh",
             }}
@@ -27,14 +25,10 @@ export default function GuessCountryScreen() {
                     Guesses
                 </Typography>
             </Grid>
-            <Grid item xs={12}>
-                <Typography variant="h4"
-                    onClick={() =>
-                        dispatch(decrementHearts())
-                    }>
-                    Enter
-                </Typography>
+            <Grid item xs={12} >
+                <CountryAutocomplete />
             </Grid>
+
         </Grid>
     );
 }
