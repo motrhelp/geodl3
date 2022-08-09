@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import Hearts from "../features/hearts/Hearts";
 import CountryAutocomplete from "../features/countryAutocomplete/CountryAutocomplete";
-import Shape from "../features/Shape";
+import Flag from "../features/Flag";
 
 export default function GuessCountryScreen() {
 
@@ -14,7 +14,7 @@ export default function GuessCountryScreen() {
             }}
         >
             <Grid item xs={12}>
-                <Shape />
+                <Flag />
             </Grid>
             <Grid item xs={12}>
                 <Hearts />
