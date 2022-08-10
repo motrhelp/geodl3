@@ -1,9 +1,11 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import FigureOutTheGrid from "./FigureOutTheGrid";
 import GuessCountryScreen from "./GuessCountryScreen";
 
 export default function GameScreen() {
     return (
-        <FigureOutTheGrid />
+        <Container maxWidth="xs">
+            <GuessCountryScreen />
+        </Container>
     );
 }

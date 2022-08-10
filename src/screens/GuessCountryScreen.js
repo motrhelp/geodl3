@@ -1,33 +1,61 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
-import Hearts from "../features/hearts/Hearts";
-import CountryAutocomplete from "../features/countryAutocomplete/CountryAutocomplete";
-import Flag from "../features/Flag";
+import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
+import WrapperBox from "../layout/WrapperBox";
+
+import Header from "../features/header/Header";
 
 export default function GuessCountryScreen() {
 
     return (
-        <Grid container
-            align="center"
+        <Grid container spacing={1}
+            direction="column"
+            columns={20}
             sx={{
-                height: "100%",
+                height: '100vh',
             }}
         >
-            <Grid item xs={12}>
-                <Flag />
-            </Grid>
-            <Grid item xs={12}>
-                <Hearts />
-            </Grid>
-            <Grid item xs={12}>
-                <Typography variant="h4">
-                    Guesses
-                </Typography>
-            </Grid>
-            <Grid item xs={12} >
-                <CountryAutocomplete />
-            </Grid>
 
-        </Grid>
+            {/* Header */}
+            <Grid item xs={2}>
+                <Header />
+            </Grid>
+            <Grid item xs={6}>
+                <WrapperBox>
+                    <Typography variant="h5">
+                        Flag
+                    </Typography>
+                </WrapperBox>
+            </Grid>
+            <Grid item xs={6}>
+                <WrapperBox>
+                    <Typography variant="h5">
+                        Guesses
+                    </Typography>
+                </WrapperBox>
+            </Grid>
+            <Grid item container xs={2} spacing={2}>
+                <Grid item xs={9}>
+                    <WrapperBox>
+                        <Typography variant="h5">
+                            Input field
+                        </Typography>
+                    </WrapperBox>
+                </Grid>
+                <Grid item xs={3} >
+                    <WrapperBox>
+                        <Typography variant="h5">
+                            Guess
+                        </Typography>
+                    </WrapperBox>
+                </Grid>
+            </Grid>
+            <Grid item xs={2}>
+                <WrapperBox>
+                    <Typography variant="h5">
+                        After text
+                    </Typography>
+                </WrapperBox>
+            </Grid>
+        </Grid >
     );
 }
