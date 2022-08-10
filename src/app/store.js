@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import heartsReducer from '../features/hearts/heartsSlice';
+import levelReducer from '../features/level/levelSlice';
 
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   hearts: heartsReducer,
+  level: levelReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
