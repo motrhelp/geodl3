@@ -1,11 +1,18 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Paper } from "@mui/material";
 import { countryList } from "../data/CountryList";
+import WrapperBox from "../layout/WrapperBox";
 
 export default function Flag() {
     return (
-        <Box
+        <Paper elevation={3}
             component="img"
-            src={"https://flagcdn.com/h240/za.png"}
+            src={"https://flagcdn.com/h240/sk.png"}
+            sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                margin: "auto",
+            }}
         />
     );
 }

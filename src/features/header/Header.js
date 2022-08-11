@@ -13,7 +13,7 @@ export default function Header() {
     const dispatch = useDispatch();
 
     return (
-        <AppBar position="static">
+        <AppBar position="fixed">
             <Toolbar >
                 <Grid container>
                     <Grid item container alignContent="center" xs={4}>

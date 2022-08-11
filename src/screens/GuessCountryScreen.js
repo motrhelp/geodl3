@@ -1,8 +1,9 @@
 import React from "react";
-import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import WrapperBox from "../layout/WrapperBox";
 
 import Header from "../features/header/Header";
+import Flag from "../features/Flag";
 
 export default function GuessCountryScreen() {
 
@@ -19,12 +20,8 @@ export default function GuessCountryScreen() {
             <Grid item xs={2}>
                 <Header />
             </Grid>
-            <Grid item xs={6}>
-                <WrapperBox>
-                    <Typography variant="h5">
-                        Flag
-                    </Typography>
-                </WrapperBox>
+            <Grid item xs={5}>
+                <Flag />
             </Grid>
             <Grid item xs={6}>
                 <WrapperBox>
@@ -49,7 +46,7 @@ export default function GuessCountryScreen() {
                     </WrapperBox>
                 </Grid>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1}>
                 <WrapperBox>
                     <Typography variant="h5">
                         After text
