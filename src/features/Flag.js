@@ -8,8 +8,8 @@ export default function Flag() {
             component="img"
             src={"https://flagcdn.com/h240/sk.png"}
             sx={{
-                width: "100%",
-                height: "100%",
+                maxWidth: '100%',
+                maxHeight: "100%",
                 display: "flex",
                 margin: "auto",
             }}

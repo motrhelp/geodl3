@@ -22,30 +22,14 @@ export default function GuessCountryScreen() {
             <Grid item xs={2}>
                 <Header />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
                 <Flag />
             </Grid>
-            <Grid item xs={7} overflow={"auto"}>
+            <Grid item xs={8} overflow={"auto"}>
                 <CountryGuessList />
             </Grid>
-            <Grid item container xs={1} spacing={2}>
-                <Grid item xs={9}>
-                    <CountryAutocomplete />
-                </Grid>
-                <Grid item xs={3} >
-                    <WrapperBox>
-                        <Typography variant="h5">
-                            Guess
-                        </Typography>
-                    </WrapperBox>
-                </Grid>
-            </Grid>
-            <Grid item xs={1}>
-                <WrapperBox>
-                    <Typography variant="h5">
-                        After text
-                    </Typography>
-                </WrapperBox>
+            <Grid item xs={1} spacing={2}>
+                <CountryAutocomplete />
             </Grid>
         </Grid >
     );
