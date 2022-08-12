@@ -6,6 +6,7 @@ import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
 import { useDispatch, useSelector } from "react-redux";
 import { decrementLevel, incrementLevel, maxLevel, minLevel, selectLevel } from "../level/levelSlice";
 import WrapperBox from "../../layout/WrapperBox";
+import SouthEastIcon from '@mui/icons-material/SouthEast';
 
 export default function Header() {
 

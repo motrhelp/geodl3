@@ -4,6 +4,7 @@ import WrapperBox from "../layout/WrapperBox";
 
 import Header from "../features/header/Header";
 import Flag from "../features/Flag";
+import CountryGuessList from "../features/countryGuesses/CountryGuessList";
 
 export default function GuessCountryScreen() {
 
@@ -23,12 +24,8 @@ export default function GuessCountryScreen() {
             <Grid item xs={5}>
                 <Flag />
             </Grid>
-            <Grid item xs={6}>
-                <WrapperBox>
-                    <Typography variant="h5">
-                        Guesses
-                    </Typography>
-                </WrapperBox>
+            <Grid item xs={6} overflow={"auto"}>
+                <CountryGuessList />
             </Grid>
             <Grid item container xs={2} spacing={2}>
                 <Grid item xs={9}>
