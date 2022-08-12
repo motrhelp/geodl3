@@ -13,6 +13,7 @@ export default function GuessCountryScreen() {
         <Grid container spacing={1}
             direction="column"
             columns={20}
+            mt={1}
             sx={{
                 height: '100vh',
 
