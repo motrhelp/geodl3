@@ -1,10 +1,11 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import WrapperBox from "../layout/WrapperBox";
 
 import Header from "../features/header/Header";
 import Flag from "../features/Flag";
 import CountryGuessList from "../features/countryGuesses/CountryGuessList";
+import CountryAutocomplete from "../features/countryAutocomplete/CountryAutocomplete";
 
 export default function GuessCountryScreen() {
 
@@ -24,16 +25,12 @@ export default function GuessCountryScreen() {
             <Grid item xs={5}>
                 <Flag />
             </Grid>
-            <Grid item xs={6} overflow={"auto"}>
+            <Grid item xs={7} overflow={"auto"}>
                 <CountryGuessList />
             </Grid>
-            <Grid item container xs={2} spacing={2}>
+            <Grid item container xs={1} spacing={2}>
                 <Grid item xs={9}>
-                    <WrapperBox>
-                        <Typography variant="h5">
-                            Input field
-                        </Typography>
-                    </WrapperBox>
+                    <CountryAutocomplete />
                 </Grid>
                 <Grid item xs={3} >
                     <WrapperBox>
