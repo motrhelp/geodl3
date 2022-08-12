@@ -4,7 +4,7 @@ import WrapperBox from "../../layout/WrapperBox";
 import SouthEastIcon from '@mui/icons-material/SouthEast';
 function CountryGuessItem({ country, distance, code }) {
 
-    const flag = "https://flagcdn.com/"+ code + ".svg";
+    const flag = "https://flagcdn.com/" + code + ".svg";
 
     return (
         <ListItem
@@ -36,7 +36,7 @@ function CountryGuessItem({ country, distance, code }) {
 export default function CountryGuessList() {
     return (
         <List>
-        <CountryGuessItem country={"Slovakia"} code="sk" distance="0 km" />
+            <CountryGuessItem country={"Slovakia"} code="sk" distance="0 km" />
             <CountryGuessItem country={"South Sudan"} code="ss" distance="2500 km" />
             <CountryGuessItem country={"USA"} code="us" distance="155 km" />
             <CountryGuessItem country={"Saint Vincent and the Grenadines"} code="vc" distance="20000 km" />

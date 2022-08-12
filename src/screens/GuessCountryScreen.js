@@ -15,6 +15,10 @@ export default function GuessCountryScreen() {
             columns={20}
             sx={{
                 height: '100vh',
+
+                /* mobile viewport bug fix */
+                minHeight: '-webkit-fill-available',
+                maxHeight: '-webkit-fill-available',
             }}
         >
 
@@ -22,13 +26,13 @@ export default function GuessCountryScreen() {
             <Grid item xs={2}>
                 <Header />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={7} overflow={"hidden"}>
                 <Flag />
             </Grid>
             <Grid item xs={8} overflow={"auto"}>
                 <CountryGuessList />
             </Grid>
-            <Grid item xs={1} spacing={2}>
+            <Grid item xs={2}>
                 <CountryAutocomplete />
             </Grid>
         </Grid >
