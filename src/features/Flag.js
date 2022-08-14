@@ -4,9 +4,7 @@ import WrapperBox from "../layout/WrapperBox";
 import { gameNumber } from "./GameNumber";
 
 export default function Flag() {
-
-    console.log(countryList[gameNumber])
-
+    
     const flagUrl = "https://flagcdn.com/h240/"
         + countryList[gameNumber].code.toLowerCase()
         + ".png";
