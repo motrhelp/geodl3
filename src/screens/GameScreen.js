@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { persistor } from "../app/store";
 import { gameNumber } from "../features/GameNumber";
 import { resetLastPlayed, selectLastPlayed } from "../features/lastPlayed/lastPlayedSlice";
-import { areDatesEqual, getTodayDate } from "../features/lastPlayed/lastPlayedUtil";
 import GuessCountryScreen from "./GuessCountryScreen";
 
 export default function GameScreen() {
