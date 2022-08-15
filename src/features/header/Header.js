@@ -6,6 +6,7 @@ import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
 import { useDispatch, useSelector } from "react-redux";
 import { decrementLevel, incrementLevel, maxLevel, minLevel, selectLevel } from "../level/levelSlice";
 import WrapperBox from "../../layout/WrapperBox";
+import { persistor } from "../../app/store";
 
 export default function Header() {
 
@@ -47,10 +48,16 @@ export default function Header() {
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography variant="subtitle2" sx={{
-                                flexGrow: 1,
-                                textAlign: 'center',
-                            }}>
+                            <Typography variant="subtitle2"
+                                sx={{
+                                    flexGrow: 1,
+                                    textAlign: 'center',
+                                }}
+                                onClick={() => {
+                                    persistor.purge();
+                                    window.location.reload();
+                                }}
+                            >
                                 Level {level}
                             </Typography>
                         </Grid>
