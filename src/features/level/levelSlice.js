@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import countryStories from "../../data/CountryStories";
 
 export const minLevel = 1;
-export const maxLevel = 3;
+export const maxLevel = countryStories[0]?.levels.length ?? 1;
 
 const initialState = {
     value: minLevel,
