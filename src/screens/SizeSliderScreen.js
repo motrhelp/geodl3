@@ -1,11 +1,10 @@
-import { Button, Fade, Grid, Link, Slider, Typography } from "@mui/material";
+import { Box, Button, Fade, Grid, Link, Slider, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import countryStories from "../data/CountryStories";
+import { countryList } from "../data/CountryList";
 import { gameNumber } from "../features/GameNumber";
 import Header from "../features/header/Header";
 import { selectLevel } from "../features/level/levelSlice";
-import WrapperBox from "../layout/WrapperBox";
 
 export default function SizeSliderScreen() {
 
@@ -19,37 +18,8 @@ export default function SizeSliderScreen() {
     const [correct, setCorrect] = useState(null);
     const [incorrect, setIncorrect] = useState(null);
 
-    // Previous levels
-    let text = "";
-    for (let i = 0; i < level - 1; i++) {
-        let countryStoryLevel = countryStories[gameNumber].levels[i];
-        countryStoryLevel.beforeText ? text += countryStoryLevel.beforeText : text += "";
-        text += countryStoryLevel.text;
-    }
-
-    // Current level
-    const countryStoryLevel = countryStories[gameNumber].levels[level - 1];
-    countryStoryLevel.beforeText ? text += countryStoryLevel.beforeText : text += "";
-
-    const onOptionPress = (index) => {
-        if (correct == undefined) {
-            if (incorrect == index) {
-                setHighlighted();
-            } else {
-                if (highlighted == index) {
-                    // Check whether the selected option is correct
-                    if (countryStoryLevel.options[index] == countryStoryLevel.text) {
-                        setCorrect(index);
-                        setHighlighted();
-                    } else {
-                        setIncorrect(index);
-                    }
-                } else {
-                    setHighlighted(index);
-                }
-            }
-        }
-    }
+    // const country = countryList[gameNumber];
+    const country = countryList[76];
 
     function valueLabelFormat(value) {
         const units = ['km²', 'thousand km²', 'million km²'];
@@ -78,9 +48,9 @@ export default function SizeSliderScreen() {
             case 4:
                 return 80000;
             case 5:
-                return 130000;
+                return 150000;
             case 6:
-                return 275000;
+                return 300000;
             case 7:
                 return 450000;
             case 8:
@@ -115,7 +85,7 @@ export default function SizeSliderScreen() {
                 {/* Header */}
                 <Grid item xs={12}>
                     <Typography variant={'body'} textAlign="center">
-                        {text}
+                        {country.name} covers an area of&nbsp;
                         {attempting || correct ?
                             <Link underline="none" color={correct ? 'success.main' : "primary"}>
                                 {valueFormatted}
@@ -125,31 +95,28 @@ export default function SizeSliderScreen() {
                         }
                     </Typography>
                 </Grid>
-                <Grid item xs={12} mt={10} container spacing={2} alignContent={"center"}>
-                    <Slider
-                        value={value}
-                        min={1}
-                        step={1}
-                        max={12}
-                        scale={calculateValue}
-                        getAriaValueText={valueLabelFormat}
-                        valueLabelFormat={valueLabelFormat}
-                        marks={
-                            [
-                                {
-                                    value: 1,
-                                    label: 'Vatican City',
-                                },
-                                {
-                                    value: 12,
-                                    label: 'Russia',
-                                }
-                            ]
-                        }
-                        onChange={handleChange}
-                        valueLabelDisplay={attempting ? "on" : "off"}
-                        color={correct ? "success" : "primary"}
-                    />
+                <Grid item xs={12} my={2} container spacing={2}
+                    alignContent={"center"}
+                    justifyContent={"center"}
+                >
+                    <Box sx={{
+                        // Fix Slider left margin overflow bug
+                        width: '100%',
+                        marginLeft: 2
+                    }}>
+                        <Slider
+                            value={value}
+                            min={1}
+                            step={1}
+                            max={12}
+                            scale={calculateValue}
+                            getAriaValueText={valueLabelFormat}
+                            valueLabelFormat={valueLabelFormat}
+                            onChange={handleChange}
+                            valueLabelDisplay={attempting ? "on" : "off"}
+                            color={correct ? "success" : "primary"}
+                        />
+                    </Box>
                 </Grid>
                 <Grid item xs={12} alignContent={"flex-start"}>
                     {correct ?
