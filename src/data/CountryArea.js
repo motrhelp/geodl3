@@ -1,7 +1,5 @@
-const countryArea = [
-    {
-        "DE": "357588"
-    }
-]
+const countryArea = new Map([
+    ['DE', 357168],
+])
 
 export default countryArea;

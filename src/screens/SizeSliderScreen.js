@@ -1,6 +1,8 @@
 import { Box, Button, Fade, Grid, Link, Slider, Typography } from "@mui/material";
+import { current } from "@reduxjs/toolkit";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import countryArea from "../data/CountryArea";
 import { countryList } from "../data/CountryList";
 import { gameNumber } from "../features/GameNumber";
 import Header from "../features/header/Header";
@@ -14,14 +16,13 @@ export default function SizeSliderScreen() {
     const [valueFormatted, setValueFormatted] = React.useState();
     const [attempting, setAttempting] = React.useState(false);
 
-    const [highlighted, setHighlighted] = useState(null);
     const [correct, setCorrect] = useState(null);
     const [incorrect, setIncorrect] = useState(null);
 
     // const country = countryList[gameNumber];
     const country = countryList[76];
 
-    function valueLabelFormat(value) {
+    function formatValue(value) {
         const units = ['km²', 'thousand km²', 'million km²'];
 
         let unitIndex = 0;
@@ -32,9 +33,7 @@ export default function SizeSliderScreen() {
             scaledValue /= 1000;
         }
 
-        let scaledValueFormatted = scaledValue.toFixed(0) + ' ' + units[unitIndex];
-        setValueFormatted(scaledValueFormatted);
-        return scaledValueFormatted;
+        return scaledValue.toFixed(0) + ' ' + units[unitIndex];
     }
 
     function calculateValue(value) {
@@ -75,8 +74,27 @@ export default function SizeSliderScreen() {
             if (typeof newValue === 'number') {
                 setValue(newValue);
             }
+            setValueFormatted(formatValue(calculateValue(newValue)));
         }
     };
+
+    const onPressGuess = () => {
+        // Convert slider step to km², compare slider value to country area
+        let calculatedValue = calculateValue(value);    
+        let differenceToCurrent = Math.abs(calculatedValue - countryArea.get(country.code));  
+        
+        // Find next closest value, find difference to closest value
+        let closestValue = calculatedValue < countryArea.get(country.code) ? value + 1 : value - 1;
+        let differenceToClosest = Math.abs(calculateValue(closestValue) - countryArea.get(country.code));
+
+        // Find out if difference is closer to current value or closest value
+        if (differenceToCurrent < differenceToClosest) {
+            setCorrect(true);
+            setAttempting(false);
+        } else {
+            setIncorrect(valueFormatted);
+        }
+    }
 
     return (
         <React.Fragment>
@@ -84,14 +102,14 @@ export default function SizeSliderScreen() {
             <Grid container spacing={5} mt={8}>
                 {/* Header */}
                 <Grid item xs={12}>
-                    <Typography variant={'body'} textAlign="center">
-                        {country.name} covers an area of&nbsp;
+                    <Typography variant={'body'} textAlign="center" >
+                        It covers an area of&nbsp;
                         {attempting || correct ?
-                            <Link underline="none" color={correct ? 'success.main' : "primary"}>
+                            <Link underline="none" color={correct ? 'success.main' : incorrect === valueFormatted ? 'error.main' : 'primary'}>
                                 {valueFormatted}
                             </Link>
                             :
-                            <Link>&nbsp;&nbsp;&nbsp;&nbsp;</Link>
+                            <Link color={incorrect ? 'error.main' : 'primary'}>&nbsp;&nbsp;&nbsp;&nbsp;</Link>
                         }
                     </Typography>
                 </Grid>
@@ -110,8 +128,8 @@ export default function SizeSliderScreen() {
                             step={1}
                             max={12}
                             scale={calculateValue}
-                            getAriaValueText={valueLabelFormat}
-                            valueLabelFormat={valueLabelFormat}
+                            getAriaValueText={formatValue}
+                            valueLabelFormat={formatValue}
                             onChange={handleChange}
                             valueLabelDisplay={attempting ? "on" : "off"}
                             color={correct ? "success" : "primary"}
@@ -125,23 +143,17 @@ export default function SizeSliderScreen() {
                                 sx={{
                                     width: "100%",
                                 }}
-                                onClick={() => {
-                                    setAttempting(false);
-                                }}
                             >
                                 {valueFormatted}
                             </Button>
                         </Fade>
                         :
                         <Fade in={attempting}>
-                            <Button variant="contained" color="primary"
+                            <Button variant="contained" color={incorrect === valueFormatted ? 'error' : 'primary'}
                                 sx={{
                                     width: "100%",
                                 }}
-                                onClick={() => {
-                                    setAttempting(false);
-                                    setCorrect(true);
-                                }}
+                                onClick={onPressGuess}
                             >
                                 {valueFormatted}
                             </Button>
