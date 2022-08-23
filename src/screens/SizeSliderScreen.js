@@ -15,9 +15,11 @@ export default function SizeSliderScreen() {
     const [value, setValue] = React.useState(6);
     const [valueFormatted, setValueFormatted] = React.useState();
     const [attempting, setAttempting] = React.useState(false);
-
     const [correct, setCorrect] = useState(null);
     const [incorrect, setIncorrect] = useState(null);
+    const [marks, setMarks] = useState([]);
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(12);
 
     // const country = countryList[gameNumber];
     const country = countryList[76];
@@ -79,21 +81,45 @@ export default function SizeSliderScreen() {
     };
 
     const onPressGuess = () => {
-        // Convert slider step to km², compare slider value to country area
-        let calculatedValue = calculateValue(value);    
-        let differenceToCurrent = Math.abs(calculatedValue - countryArea.get(country.code));  
-        
-        // Find next closest value, find difference to closest value
-        let closestValue = calculatedValue < countryArea.get(country.code) ? value + 1 : value - 1;
-        let differenceToClosest = Math.abs(calculateValue(closestValue) - countryArea.get(country.code));
+        if (!correct) {
+            // Convert slider step to km², compare slider value to country area
+            let calculatedValue = calculateValue(value);
+            let differenceToCurrent = Math.abs(calculatedValue - countryArea.get(country.code));
 
-        // Find out if difference is closer to current value or closest value
-        if (differenceToCurrent < differenceToClosest) {
-            setCorrect(true);
-            setAttempting(false);
-        } else {
-            setIncorrect(valueFormatted);
+            // Find next closest value, find difference to closest value
+            let closestValue = calculatedValue < countryArea.get(country.code) ? value + 1 : value - 1;
+            let differenceToClosest = Math.abs(calculateValue(closestValue) - countryArea.get(country.code));
+
+            // Find out if difference is closer to current value or closest value
+            if (differenceToCurrent < differenceToClosest) {
+                setCorrect(true);
+                setAttempting(false);
+            } else if (!incorrect) {
+                setIncorrect(valueFormatted);
+
+                // Add marks to the slider as hints
+                let newMarks = [...marks];
+                newMarks.push({
+                    value: 5,
+                    label: 'Czech Republic',
+                });
+                newMarks.push({
+                    value: 8,
+                    label: 'France',
+                });
+                setMarks(newMarks);
+
+                // Reduce the range of the slider
+                setMin(5);
+                setMax(8);
+            }
         }
+    }
+
+    const sliderColor = () => {
+        return correct ? "success" :
+            value <= min || value >= max ? "error" :
+            "primary"
     }
 
     return (
@@ -105,7 +131,7 @@ export default function SizeSliderScreen() {
                     <Typography variant={'body'} textAlign="center" >
                         It covers an area of&nbsp;
                         {attempting || correct ?
-                            <Link underline="none" color={correct ? 'success.main' : incorrect === valueFormatted ? 'error.main' : 'primary'}>
+                            <Link underline="none" color={sliderColor()}>
                                 {valueFormatted}
                             </Link>
                             :
@@ -130,9 +156,10 @@ export default function SizeSliderScreen() {
                             scale={calculateValue}
                             getAriaValueText={formatValue}
                             valueLabelFormat={formatValue}
+                            marks={marks}
                             onChange={handleChange}
                             valueLabelDisplay={attempting ? "on" : "off"}
-                            color={correct ? "success" : "primary"}
+                            color={sliderColor()}
                         />
                     </Box>
                 </Grid>
@@ -149,7 +176,7 @@ export default function SizeSliderScreen() {
                         </Fade>
                         :
                         <Fade in={attempting}>
-                            <Button variant="contained" color={incorrect === valueFormatted ? 'error' : 'primary'}
+                            <Button variant="contained" color={sliderColor()}
                                 sx={{
                                     width: "100%",
                                 }}
