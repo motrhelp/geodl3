@@ -19,7 +19,8 @@ export default function SizeSliderScreen() {
     const [incorrect, setIncorrect] = useState(null);
     const [marks, setMarks] = useState([]);
     const [min, setMin] = useState(0);
-    const [max, setMax] = useState(12);
+    const [max, setMax] = useState(13);
+    const [gameOver, setGameOver] = useState(false);
 
     // const country = countryList[gameNumber];
     const country = countryList[76];
@@ -69,7 +70,7 @@ export default function SizeSliderScreen() {
     }
 
     const handleChange = (event, newValue) => {
-        if (!correct) {
+        if (!correct && (newValue <= max && newValue >= min) && !gameOver) {
             if (!attempting) {
                 setAttempting(true);
             }
@@ -81,7 +82,7 @@ export default function SizeSliderScreen() {
     };
 
     const onPressGuess = () => {
-        if (!correct) {
+        if (!correct && !gameOver && (value < max && value > min)) {
             // Convert slider step to km², compare slider value to country area
             let calculatedValue = calculateValue(value);
             let differenceToCurrent = Math.abs(calculatedValue - countryArea.get(country.code));
@@ -94,6 +95,7 @@ export default function SizeSliderScreen() {
             if (differenceToCurrent < differenceToClosest) {
                 setCorrect(true);
                 setAttempting(false);
+                setValueFormatted(formatValue(countryArea.get(country.code)));
             } else if (!incorrect) {
                 setIncorrect(valueFormatted);
 
@@ -112,14 +114,23 @@ export default function SizeSliderScreen() {
                 // Reduce the range of the slider
                 setMin(5);
                 setMax(8);
+            } else {
+                // Second incorrect guess, game over
+                setGameOver(true);
+                setValueFormatted(formatValue(countryArea.get(country.code)));
             }
         }
     }
 
     const sliderColor = () => {
         return correct ? "success" :
-            value <= min || value >= max ? "error" :
-            "primary"
+            gameOver || (value <= min || value >= max) ? "error" :
+                "primary"
+    }
+
+    const textColor = () => {
+        let color = sliderColor();
+        return color === "success" ? "success.main" : color;
     }
 
     return (
@@ -131,11 +142,11 @@ export default function SizeSliderScreen() {
                     <Typography variant={'body'} textAlign="center" >
                         It covers an area of&nbsp;
                         {attempting || correct ?
-                            <Link underline="none" color={sliderColor()}>
+                            <Link underline="none" color={textColor()}>
                                 {valueFormatted}
                             </Link>
                             :
-                            <Link color={incorrect ? 'error.main' : 'primary'}>&nbsp;&nbsp;&nbsp;&nbsp;</Link>
+                            <Link color={sliderColor()}>&nbsp;&nbsp;&nbsp;&nbsp;</Link>
                         }
                     </Typography>
                 </Grid>
@@ -160,21 +171,12 @@ export default function SizeSliderScreen() {
                             onChange={handleChange}
                             valueLabelDisplay={attempting ? "on" : "off"}
                             color={sliderColor()}
+                            track={false}
                         />
                     </Box>
                 </Grid>
                 <Grid item xs={12} alignContent={"flex-start"}>
-                    {correct ?
-                        <Fade in={correct}>
-                            <Button variant="contained" color="success"
-                                sx={{
-                                    width: "100%",
-                                }}
-                            >
-                                {valueFormatted}
-                            </Button>
-                        </Fade>
-                        :
+                    {!gameOver &&
                         <Fade in={attempting}>
                             <Button variant="contained" color={sliderColor()}
                                 sx={{
