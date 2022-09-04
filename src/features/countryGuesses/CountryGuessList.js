@@ -78,7 +78,7 @@ export default function CountryGuessList() {
 
     return (
         <List>
-            {[...countryGuessList].reverse().map((guess, index) => (
+            {[...countryGuessList].map((guess, index) => (
                 <CountryGuessItem key={index}
                     country={guess.country}
                     distance={guess.distance}

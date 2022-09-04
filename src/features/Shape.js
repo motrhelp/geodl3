@@ -5,7 +5,7 @@ import shapes from "../data/shapes/Shapes";
 
 export default function Shape() {
 
-    const code = "de";
+    const code = "th";
     const shapeFilename = shapes.get(code);
 
     return (
