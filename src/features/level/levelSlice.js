@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import countryStories from "../../data/CountryStories";
 
-export const minLevel = 1;
+export const minLevel = 0;
 export const maxLevel = countryStories[0]?.levels.length ?? 1;
 
 const initialState = {
@@ -14,7 +14,7 @@ export const levelSlice = createSlice({
     initialState,
     reducers: {
         decrementLevel: (state) => {
-            if (state.value > 1) {
+            if (state.value > minLevel) {
                 state.value -= 1;
             }
         },

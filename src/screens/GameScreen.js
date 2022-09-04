@@ -9,6 +9,7 @@ import Header from "../features/header/Header";
 import { resetLastPlayed, selectLastPlayed } from "../features/lastPlayed/lastPlayedSlice";
 import { selectLevel } from "../features/level/levelSlice";
 import CountryStoryScreen from "./CountryStoryScreen";
+import GameScrollScreen from "./GameScrollScreen";
 import GuessCountryScreen from "./GuessCountryScreen";
 import SizeSliderScreen from "./SizeSliderScreen";
 
@@ -31,16 +32,19 @@ export default function GameScreen() {
 
     return (
         <Container maxWidth="xs">
-            {countryStories[0].levels[level - 1].type === "flag" ?
-                <GuessCountryScreen />
+            {level == 0 ?
+                <GameScrollScreen />
                 :
-                countryStories[0].levels[level - 1].type === "textOptions" ?
-                    <CountryStoryScreen />
+                countryStories[0].levels[level - 1].type === "flag" ?
+                    <GuessCountryScreen />
                     :
-                    countryStories[0].levels[level - 1].type === "sizeSlider" ?
-                        <SizeSliderScreen />
+                    countryStories[0].levels[level - 1].type === "textOptions" ?
+                        <CountryStoryScreen />
                         :
-                        <Header />
+                        countryStories[0].levels[level - 1].type === "sizeSlider" ?
+                            <SizeSliderScreen />
+                            :
+                            <Header />
 
             }
         </Container>

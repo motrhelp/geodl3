@@ -5,7 +5,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
 import { useDispatch, useSelector } from "react-redux";
 import { decrementLevel, incrementLevel, maxLevel, minLevel, selectLevel } from "../level/levelSlice";
-import WrapperBox from "../../layout/WrapperBox";
 import { persistor } from "../../app/store";
 
 export default function Header() {
