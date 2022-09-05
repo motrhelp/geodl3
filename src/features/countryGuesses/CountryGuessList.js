@@ -16,7 +16,7 @@ import NorthWestIcon from "@mui/icons-material/NorthWest";
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import CheckIcon from '@mui/icons-material/Check';
 
-function CountryGuessItem({ country, distance, code, direction }) {
+function CountryGuessItem({ country, distance, code, direction, innerRef }) {
 
     const flag = "https://flagcdn.com/" + code?.toLowerCase() + ".svg";
 
@@ -50,11 +50,12 @@ function CountryGuessItem({ country, distance, code, direction }) {
             secondaryAction={
                 directionToArrow(direction)
             }
+            ref={innerRef}
         >
             <ListItemAvatar>
                 <Avatar src={flag} />
             </ListItemAvatar>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} mr={2}>
                 <Grid item xs={8}>
                     <ListItemText
                         primary={country}
@@ -76,14 +77,28 @@ export default function CountryGuessList() {
 
     const countryGuessList = useSelector(selectCountryGuessList);
 
+    // Create last item reference
+    const lastItemRef = React.useRef();
+
+    // Scroll to last item every time countryGuessList changes
+    React.useEffect(() => {
+        if (lastItemRef.current) {
+            lastItemRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [countryGuessList]);
+
     return (
-        <List>
+        <List
+            sx={{
+                width: "350px",
+            }}>
             {[...countryGuessList].map((guess, index) => (
                 <CountryGuessItem key={index}
                     country={guess.country}
                     distance={guess.distance}
                     direction={guess.direction}
                     code={guess.code}
+                    innerRef={lastItemRef}
                 />
             ))}
         </List>
