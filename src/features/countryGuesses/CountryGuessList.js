@@ -60,6 +60,9 @@ function CountryGuessItem({ country, distance, code, direction, innerRef }) {
                     <ListItemText
                         primary={country}
                         align="center"
+                        sx={{
+                            alignText: "center",
+                        }}
                     />
                 </Grid>
                 <Grid item xs={4}>

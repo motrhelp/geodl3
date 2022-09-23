@@ -3,6 +3,7 @@ import heartsReducer from '../features/hearts/heartsSlice';
 import levelReducer from '../features/level/levelSlice';
 import countryGuessListReducer from '../features/countryGuesses/countryGuessListSlice';
 import lastPlayedReducer from '../features/lastPlayed/lastPlayedSlice';
+import countryVictoryReducer from '../features/level/countryVictorySlice';
 
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   hearts: heartsReducer,
   level: levelReducer,
   countryGuessList: countryGuessListReducer,
-  lastPlayed: lastPlayedReducer
+  lastPlayed: lastPlayedReducer,
+  countryVictory: countryVictoryReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -6,6 +6,7 @@ import { countryList } from "../../data/CountryList";
 import { selectCountryGuessList, addCountryGuess } from "../countryGuesses/countryGuessListSlice";
 import { calculateBearing, calculateDistance } from "../DistanceCalculator";
 import { gameNumber } from "../GameNumber";
+import { registerCountryVictory, registerVictory } from "../level/countryVictorySlice";
 
 export default function CountryAutocomplete() {
 
@@ -41,6 +42,19 @@ export default function CountryAutocomplete() {
         return newGuess;
     }
 
+    const onClickGuess = () => {
+        // Add new guess to guess list
+        const newGuess = createGuessFromAutocomplete();
+        if (newGuess != null) {
+            dispatch(addCountryGuess(newGuess));
+        }
+
+        // Check if the guess is correct
+        if (newGuess != null && newGuess.distance == 0) {
+            dispatch(registerCountryVictory());
+        }
+    }
+
     const PopperMy = function (props) {
         return (<Popper {...props} placement='top' disablePortal={false} />)
     }
@@ -65,12 +79,7 @@ export default function CountryAutocomplete() {
                     height: '100%',
                     width: '100%',
                 }}
-                    onClick={() => {
-                        const newGuess = createGuessFromAutocomplete();
-                        if (newGuess != null) {
-                            dispatch(addCountryGuess(newGuess));
-                        }
-                    }}
+                    onClick={onClickGuess}
                 >
                     Guess
                 </Button>
