@@ -51,6 +51,9 @@ function CountryGuessItem({ country, distance, code, direction, innerRef }) {
                 directionToArrow(direction)
             }
             ref={innerRef}
+            sx ={{
+                color: distance === 0 ? "success.main" : null,
+            }}
         >
             <ListItemAvatar>
                 <Avatar src={flag} />

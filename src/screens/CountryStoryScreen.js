@@ -18,13 +18,13 @@ export default function CountryStoryScreen() {
     // Previous levels
     let text = "";
     for (let i = 0; i < level - 1; i++) {
-        let countryStoryLevel = countryStories[gameNumber].levels[i];
+        let countryStoryLevel = countryStories[0].levels[i];
         countryStoryLevel.beforeText ? text += countryStoryLevel.beforeText : text += "";
         text += countryStoryLevel.text;
     }
 
     // Current level
-    const countryStoryLevel = countryStories[gameNumber].levels[level - 1];
+    const countryStoryLevel = countryStories[0].levels[level - 1];
     countryStoryLevel.beforeText ? text += countryStoryLevel.beforeText : text += "";
 
     const onOptionPress = (index) => {

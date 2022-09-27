@@ -11,7 +11,8 @@ export default function Flag() {
     const level = useSelector(selectLevel);
     
     const flagUrl = "https://flagcdn.com/h240/"
-        + countryStories[gameNumber].levels[level].code
+        // + countryStories[gameNumber].levels[level].code
+        + "de"
         + ".png";
 
     return (

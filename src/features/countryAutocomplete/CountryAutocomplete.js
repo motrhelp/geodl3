@@ -6,7 +6,7 @@ import { countryList } from "../../data/CountryList";
 import { selectCountryGuessList, addCountryGuess } from "../countryGuesses/countryGuessListSlice";
 import { calculateBearing, calculateDistance } from "../DistanceCalculator";
 import { gameNumber } from "../GameNumber";
-import { registerCountryVictory, registerVictory } from "../level/countryVictorySlice";
+import { registerCountryVictory } from "../level/countryVictorySlice";
 
 export default function CountryAutocomplete() {
 
